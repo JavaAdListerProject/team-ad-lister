@@ -12,7 +12,7 @@ import java.io.IOException;
 public class SearchAdsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String search = request.getParameter("search");
-        request.setAttribute("title", DaoFactory.getAdsDao().getAds(search));
+        request.("title", DaoFactory.getAdsDao().getAds(search));
         request.setAttribute("description", DaoFactory.getAdsDao().getAds(search));
 
         request.setAttribute("AdsDao", DaoFactory.getAdsDao());
