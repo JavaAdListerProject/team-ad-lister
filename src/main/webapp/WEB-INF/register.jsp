@@ -9,23 +9,7 @@
 <body>
     <jsp:include page="partials/navbar.jsp" />
 
-
-    <c:if test="${not empty validate}" >
-
-
-
-            <c:forEach items="${validate.results}" var="result">
-                <div class="alert alert-danger" role="alert">
-
-                  <strong><c:out value="${result.item}"/></strong>
-                   <c:out value="${result.error}"/>
-                </div>
-            </c:forEach>
-
-
-
-
-    </c:if>
+    <jsp:include page="partials/validation.jsp" />
 
     <div class="container">
         <h1>Please fill in your information.</h1>

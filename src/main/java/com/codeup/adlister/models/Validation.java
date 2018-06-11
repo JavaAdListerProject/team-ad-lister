@@ -1,8 +1,6 @@
 package com.codeup.adlister.models;
 
-import com.codeup.adlister.dao.DaoFactory;
-import com.codeup.adlister.models.Response;
-import com.codeup.adlister.models.ResponseError;
+import com.codeup.adlister.util.Password;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +53,25 @@ public class Validation {
 
     }
 
+    public void checkEncryptedPassword(String password, String storedHash) {
+
+        boolean validAttempt = Password.check(password,storedHash);
+
+        if(!validAttempt) results.add(new ResponseError("Password","Error authenticating user."));
+
+    }
+
+    public void checkExists(String inputName, boolean shouldExist, boolean returnedExistenceCheck) {
+        // Should exist but does not
+        if(shouldExist && !returnedExistenceCheck) {
+            results.add(new ResponseError(inputName , inputName + " does not exist"));
+        }
+
+        if(!shouldExist && returnedExistenceCheck) {
+            results.add(new ResponseError(inputName , inputName + " already exists"));
+        }
+    }
+
 
     public void checkValueExists(String inputName, String string, boolean shouldExist, boolean returnedExistenceCheck) {
 
@@ -73,20 +90,19 @@ public class Validation {
         return results;
     }
 
-    public void setResults(Response result) {
+    public void setResults(List<Response> result) {
         this.results = results;
     }
 
 
     public Integer errorCount() {
-        return 10;
-    }
-
-    public boolean resultContainsErrors() {
-        return true;
+        return results.size();
     }
 
     public boolean passed() {
+
+        if(results.isEmpty()) return true;
+
             for(Response response : results) {
                  if (!response.isSuccess()) return false;
             }
