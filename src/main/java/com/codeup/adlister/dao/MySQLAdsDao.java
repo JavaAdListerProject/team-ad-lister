@@ -3,10 +3,9 @@ package com.codeup.adlister.dao;
 import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +53,31 @@ public class MySQLAdsDao implements Ads {
         } catch (SQLException e) {
             throw new RuntimeException("Error creating a new ad.", e);
         }
+    }
+
+    @Override
+    public List<Ad> getAds(String search) {
+        return null;
+    }
+
+    @Override
+    public List<Ad> byUsername(BIConversion.User user) {
+        return null;
+    }
+
+    @Override
+    public Ad getAdById(int findId) {
+        return null;
+    }
+
+    @Override
+    public void deleteAd(Ad ad) {
+
+    }
+
+    @Override
+    public void updateAd(Ad ad) {
+
     }
 
     private Ad extractAd(ResultSet rs) throws SQLException {
