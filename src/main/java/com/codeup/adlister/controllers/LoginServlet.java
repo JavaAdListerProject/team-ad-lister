@@ -27,8 +27,6 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-
-
         Validation validate = new Validation();
 
         User user = DaoFactory.getUsersDao().findByUsername(username);
