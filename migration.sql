@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS categories;
 
 CREATE TABLE users (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    username VARCHAR(240) UNIQUE NOT NULL,
+    username VARCHAR(240) UNIQUE NOT NULL, /* must be unique usernames*/
     email VARCHAR(240) NOT NULL,
     password VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
