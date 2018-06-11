@@ -4,11 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ResponseError  extends Response {
-        private Map<String, String> errors = new HashMap<>();
 
-        public Map<String, String> getErrors() {
-            return errors;
-        }
+       private String item;
+       private String error;
+
 
         public ResponseError() {
             super(false);
@@ -16,18 +15,26 @@ public class ResponseError  extends Response {
 
         public ResponseError(String key, String value) {
             super(false);
-            this.errors.put(key,value);
+            this.error = value;
+            this.item = key;
         }
 
-        public void setErrors(Map<String, String> value) {
-            errors = value;
-        }
 
-        public void addError (String key, String value) {
-            errors.put(key, value);
-
-        }
-
+    public String getItem() {
+        return item;
     }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+}
 
 

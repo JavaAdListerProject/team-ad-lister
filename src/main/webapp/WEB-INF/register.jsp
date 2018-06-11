@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,6 +8,25 @@
 </head>
 <body>
     <jsp:include page="partials/navbar.jsp" />
+
+
+    <c:if test="${not empty validate}" >
+
+
+
+            <c:forEach items="${validate.results}" var="result">
+                <div class="alert alert-danger" role="alert">
+
+                  <strong><c:out value="${result.item}"/></strong>
+                   <c:out value="${result.error}"/>
+                </div>
+            </c:forEach>
+
+
+
+
+    </c:if>
+
     <div class="container">
         <h1>Please fill in your information.</h1>
         <form action="/register" method="post">

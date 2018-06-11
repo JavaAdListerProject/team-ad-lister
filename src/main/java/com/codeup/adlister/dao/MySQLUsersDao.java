@@ -1,7 +1,10 @@
 package com.codeup.adlister.dao;
 
 import com.codeup.adlister.Config;
+import com.codeup.adlister.models.Response;
+import com.codeup.adlister.models.ResponseError;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.models.Validation;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
@@ -73,5 +76,24 @@ public class MySQLUsersDao implements Users {
     }
 
 
+    public Validation addNewUser(String username, String email, String password, String passwordConfirmation) {
+
+        Validation validate = new Validation();
+
+        validate.checkString("Username", username, false, 1, 100);
+        validate.checkEmail("Email", email);
+        validate.checkAndComparePassword("Password", password, passwordConfirmation);
+        validate.checkValueExists("Username", username, false,
+                DaoFactory.getUsersDao().userExistsByUsername(username));
+
+        // If validation passes save user.
+        if (validate.passed()) {
+            User user = new User(username, email, password);
+            insert(user);
+        }
+
+        return validate;
+
+    }
 
 }
