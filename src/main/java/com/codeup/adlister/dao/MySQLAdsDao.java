@@ -2,9 +2,11 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
+import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
+import java.sql.PreparedStatement;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -55,9 +57,20 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+    // SEARCH FUNCTON
+
     @Override
     public List<Ad> getAds(String search) {
-        return null;
+        try {
+            String searchQuery = "SELECT * FROM ads WHERE title LIKE ? OR description LIKE ?";
+            PreparedStatement stmt = connection.prepareStatement(searchQuery);
+            stmt.setString(1, "%" + search + "%");
+            stmt.setString(2, "%" + search + "%");
+            ResultSet rs = stmt.executeQuery();
+            return createAdsFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving ads.", e);
+        }
     }
 
     @Override
@@ -66,14 +79,34 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
-    public Ad getAdById(int findId) {
+    public List<Ad> byUsername(User user) {
         return null;
     }
 
-    @Override
-    public void deleteAd(Ad ad) {
 
+    public Ad getAdById(int idToFind) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM ads WHERE ID = " + idToFind);
+            rs.next();
+            return extractAd(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving details of ad.", e);
+        }
     }
+
+
+        @Override
+        public void deleteAd(Ad ad) {
+            try {
+                Statement statement = connection.createStatement();
+                statement.executeUpdate("DELETE FROM ads WHERE ID = " + ad.getId());
+            } catch (SQLException e) {
+                throw new RuntimeException("Error deleting this ad.", e);
+            }
+        }
+
+
 
     @Override
     public void updateAd(Ad ad) {

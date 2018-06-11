@@ -1,6 +1,7 @@
 package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
+import com.codeup.adlister.models.User;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public interface Ads {
     List<Ad> getAds(String search);
 
     List<Ad> byUsername(BIConversion.User user);
+
+    List<Ad> byUsername(User user);
+
     Ad getAdById(int findId);  // idToFind
 
     void deleteAd(Ad ad);
