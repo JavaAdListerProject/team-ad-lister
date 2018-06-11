@@ -4,7 +4,6 @@ import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
 import java.sql.PreparedStatement;
 
@@ -57,7 +56,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    // SEARCH FUNCTON
+    //---------->    SEARCH FUNCTON
 
     @Override
     public List<Ad> getAds(String search) {
@@ -73,10 +72,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    @Override
-    public List<Ad> byUsername(BIConversion.User user) {
-        return null;
-    }
+
 
     @Override
     public List<Ad> byUsername(User user) {
