@@ -16,6 +16,12 @@
         <div class="col-md-6">
             <h2>${ad.title}</h2>
             <p>${ad.description}</p>
+            <form action="/adpage">
+                <input type="hidden" name="adid" value=${ad.id}>
+                <input type="hidden" name="userId" value=${ad.getUserId()}>
+                <input type="submit" value="View Details">
+            </form>
+            <hr>
         </div>
     </c:forEach>
 </div>
