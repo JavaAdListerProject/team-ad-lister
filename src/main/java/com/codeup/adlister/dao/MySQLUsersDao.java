@@ -52,10 +52,25 @@ public class MySQLUsersDao implements Users {
         }
     }
 
-    private User extractUser(ResultSet rs) throws SQLException {
-        if (! rs.next()) {
-            return null;
+    @Override
+    public User findById(Long id) {
+        PreparedStatement stmt = null;
+        try {
+            stmt = connection.prepareStatement("SELECT * FROM users where id = ?");
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) {
+                return extractUser(rs);
+            }
+˚
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return null;
+    }
+
+    private User extractUser(ResultSet rs) throws SQLException {
         return new User(
             rs.getLong("id"),
             rs.getString("username"),
