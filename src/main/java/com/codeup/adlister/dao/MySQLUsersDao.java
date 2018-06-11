@@ -29,14 +29,20 @@ public class MySQLUsersDao implements Users {
 
     @Override
     public User findByUsername(String username) {
-        String query = "SELECT * FROM users WHERE username = ? LIMIT 1";
+        PreparedStatement stmt = null;
         try {
-            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt = connection.prepareStatement("SELECT * FROM users WHERE username = ? LIMIT 1");
             stmt.setString(1, username);
-            return extractUser(stmt.executeQuery());
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) {
+                return extractUser(rs);
+            }
         } catch (SQLException e) {
             return null;
         }
+
+        return null;
     }
 
     @Override
@@ -67,7 +73,7 @@ public class MySQLUsersDao implements Users {
             if(rs.next()) {
                 return extractUser(rs);
             }
-˚
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

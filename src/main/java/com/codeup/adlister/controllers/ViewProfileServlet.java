@@ -12,9 +12,7 @@ import java.io.IOException;
 @WebServlet(name = "controllers.ViewProfileServlet", urlPatterns = "/profile")
 public class ViewProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
-
-        if (user != null) {
+        if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
             return;
         }
