@@ -4,15 +4,13 @@ import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MySQLAdsDao implements Ads {
-    private Connection connection = null;
+    private static Connection connection = null;
 
     public MySQLAdsDao(Config config) {
         try {
@@ -56,13 +54,40 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    private Ad extractAd(ResultSet rs) throws SQLException {
+    @Override
+    public Ad findById(String adId) {
+        PreparedStatement stmt = null;
+        try {
+            stmt = connection.prepareStatement("SELECT * FROM ads where id = ?");
+            stmt.setLong(1, Long.parseLong(adId));
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) {
+                return extractAd(rs);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
             rs.getLong("id"),
             rs.getLong("user_id"),
             rs.getString("title"),
             rs.getString("description")
         );
+    }
+
+    private Ad createAdFromResult(ResultSet rs) throws  SQLException  {
+        Ad ad = null;
+        while(rs.next()) {
+            ad  = extractAd(rs);
+        }
+
+        return ad;
     }
 
     private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
@@ -72,4 +97,5 @@ public class MySQLAdsDao implements Ads {
         }
         return ads;
     }
+
 }
