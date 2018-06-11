@@ -63,7 +63,7 @@ public class MySQLUsersDao implements Users {
             if(rs.next()) {
                 return extractUser(rs);
             }
-˚
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
