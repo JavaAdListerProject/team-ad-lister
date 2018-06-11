@@ -13,10 +13,13 @@ public interface Ads {
 
     // for searching Ads =>
 
-    List<Ad> getAdsByTerm(String search);
+    List<Ad> getAds(String search);
 
     List<Ad> byUsername(BIConversion.User user);
-    Ad getAdById(int findId);
+    Ad getAdById(int findId);  // idToFind
+
+    void deleteAd(Ad ad);
+    void updateAd(Ad ad);
 
     // end of add search
 }
