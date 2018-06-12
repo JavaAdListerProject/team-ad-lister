@@ -26,7 +26,8 @@ public class AdSearchServlet extends HttpServlet {
         // Search is displayed on page
 
 
-            String input = request.getParameter("input");
+            String input = request.getParameter("term");
+        System.out.println(input);
 
             if (input != null) {
 
