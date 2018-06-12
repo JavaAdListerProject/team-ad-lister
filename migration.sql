@@ -2,33 +2,36 @@ CREATE DATABASE IF NOT EXISTS adlister_db;
 
 USE adlister_db;
 
+DROP TABLE IF EXISTS ad_categories;
 DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS categories;
 
 
 CREATE TABLE users (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    username VARCHAR(240) UNIQUE NOT NULL, /* must be unique usernames*/
-    email VARCHAR(240) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  username VARCHAR(240) UNIQUE NOT NULL, /* must be unique usernames*/
+  email VARCHAR(240) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE ads (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    user_id INT UNSIGNED NOT NULL,
-    title VARCHAR(240) NOT NULL,
-    description TEXT NULL
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_id INT UNSIGNED NOT NULL,
+  title VARCHAR(240) NOT NULL,
+  description TEXT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
-        ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE
 );
 
 /*Lookup / Pivot Table */
 CREATE TABLE ad_categories (
-    ad_id INT UNSIGNED NOT NULL,
-    category_id INT UNSIGNED NOT NULL
+  ad_id INT UNSIGNED NOT NULL,
+  category_id INT UNSIGNED NOT NULL,
+  FOREIGN KEY(ad_id) REFERENCES ads(id)
+    ON DELETE CASCADE
 );
 
 
@@ -36,7 +39,7 @@ CREATE TABLE categories (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   main_id INT,
   title VARCHAR(240),
-    PRIMARY KEY (id)
+  PRIMARY KEY (id)
 );
 
 
@@ -44,14 +47,14 @@ INSERT INTO  users (username, email, password) VALUES ('root','root@root.root','
 
 /* Creating Category Data*/
 INSERT INTO categories (title,main_id)
-    VALUES
-      ('community',0),
-      ('services',0),
-      ('discussion',0),
-      ('housing', 0),
-      ('jobs', 0),
-      ('personal',0),
-      ('for sale',0);
+VALUES
+  ('community',0),
+  ('services',0),
+  ('discussion',0),
+  ('housing', 0),
+  ('jobs', 0),
+  ('personal',0),
+  ('for sale',0);
 
 
 SET @commID = (SELECT id FROM categories WHERE title = 'community');
@@ -62,14 +65,14 @@ SET @jobsID = (SELECT id FROM categories WHERE title = 'jobs');
 
 /* Community */
 INSERT INTO categories (title, main_id)
-    VALUES
-      ('activities', @commID),
-      ('artists', @commID),
-      ('lost and found', @commID),
-      ('pets', @commID),
-      ('local news', @commID),
-      ('childcare', @commID),
-      ('rants', @commID);
+VALUES
+  ('activities', @commID),
+  ('artists', @commID),
+  ('lost and found', @commID),
+  ('pets', @commID),
+  ('local news', @commID),
+  ('childcare', @commID),
+  ('rants', @commID);
 
 
 /* Services */
@@ -98,29 +101,29 @@ VALUES
 
 INSERT INTO categories (title, main_id)
 VALUES
-('apts / housing       ', @housID),
-('housing swap         ', @housID),
-('housing wanted       ', @housID),
-('office / commercial  ', @housID),
-('parking / storage    ', @housID),
-('real estate for sale ', @housID),
-('rooms / shared       ', @housID),
-('rooms wanted         ', @housID),
-('sublets / temporary  ', @housID),
-('vacation rentals     ', @housID);
+  ('apts / housing       ', @housID),
+  ('housing swap         ', @housID),
+  ('housing wanted       ', @housID),
+  ('office / commercial  ', @housID),
+  ('parking / storage    ', @housID),
+  ('real estate for sale ', @housID),
+  ('rooms / shared       ', @housID),
+  ('rooms wanted         ', @housID),
+  ('sublets / temporary  ', @housID),
+  ('vacation rentals     ', @housID);
 
 
 INSERT INTO categories (title, main_id)
 VALUES
-('security               ', @jobsID) ,
-('skilled trade / craft  ', @jobsID) ,
-('software / qa / dba    ', @jobsID) ,
-('systems / network      ', @jobsID) ,
-('technical support      ', @jobsID) ,
-('transport              ', @jobsID) ,
-('tv / film / video      ', @jobsID) ,
-('web / info design      ', @jobsID) ,
-('writing / editing     ', @jobsID);
+  ('security               ', @jobsID) ,
+  ('skilled trade / craft  ', @jobsID) ,
+  ('software / qa / dba    ', @jobsID) ,
+  ('systems / network      ', @jobsID) ,
+  ('technical support      ', @jobsID) ,
+  ('transport              ', @jobsID) ,
+  ('tv / film / video      ', @jobsID) ,
+  ('web / info design      ', @jobsID) ,
+  ('writing / editing     ', @jobsID);
 
 
 
