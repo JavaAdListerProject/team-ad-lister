@@ -109,7 +109,7 @@ insert into users (username, email, password) values ('alathayeb', 'adelaegliseb
 insert into users (username, email, password) values ('rvyec', 'jbrannanc@jalbum.net', 'V43q0rvlD');
 insert into users (username, email, password) values ('sbiddlestond', 'jcalderheadd@wired.com', 'mOsc1C6f5dUj');
 insert into users (username, email, password) values ('lwrethame', 'curwine@reddit.com', 'Pl09mwU');
-insert into users (username, email, password) values ('amathivonf', 'lsygrovef@google.cn', 'q7Zv7vmEOt3');
+insert into users (username, email, password) values ('amathivonf', 'lsygrovef@google.cn', '$2a$12$74rjPcgHozeo5U5v/8slMeEseM69UE4dRkKZgFpr3ZPb0UXRPRxuG');
 insert into users (username, email, password) values ('ubaeldeg', 'jdrieug@bloomberg.com', 'fbHGE8t');
 insert into users (username, email, password) values ('lgwilth', 'ckobush@soup.io', 'edmZ08Sq');
 insert into users (username, email, password) values ('wocollopyi', 'knoelli@live.com', '6BBSd2');
