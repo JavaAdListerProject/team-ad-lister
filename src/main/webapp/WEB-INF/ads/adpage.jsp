@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: danielconner
-  Date: 6/11/18
-  Time: 10:52 AM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -16,5 +10,15 @@
     <h2>${selectad.title}</h2>
     <h3>By user ${user.username}</h3>
     <h2>${selectad.description}</h2>
+
+
+    <div class="categories">
+
+<c:forEach var="cat" items="${selectad.categories}">
+
+    <span class="mr-2">${cat.title}</span>
+
+</c:forEach>
+    </div>
 </body>
 </html>

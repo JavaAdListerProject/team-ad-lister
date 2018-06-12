@@ -14,6 +14,8 @@ public interface AdCategories {
     // Returns only main ad categories
     List<AdCategory> main();
 
+    List<AdCategory> getByAdId(long id);
+
     // Returns sub category of main category
     List<AdCategory> sub(long id);
 
