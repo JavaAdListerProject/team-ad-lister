@@ -81,14 +81,6 @@ public class MySQLAdsDao implements Ads {
         );
     }
 
-    private Ad createAdFromResult(ResultSet rs) throws  SQLException  {
-        Ad ad = null;
-        while(rs.next()) {
-            ad  = extractAd(rs);
-        }
-
-        return ad;
-    }
 
     private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
         List<Ad> ads = new ArrayList<>();
@@ -96,6 +88,19 @@ public class MySQLAdsDao implements Ads {
             ads.add(extractAd(rs));
         }
         return ads;
+    }
+
+    @Override
+    public List<Ad> category(Long Id) {
+        PreparedStatement stmt = null;
+        try {
+            stmt = connection.prepareStatement("SELECT * FROM ads WHERE category_id = ?");
+            stmt.setLong(1, Id);
+            ResultSet rs = stmt.executeQuery();
+            return createAdsFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving ads in category.", e);
+        }
     }
 
 }
