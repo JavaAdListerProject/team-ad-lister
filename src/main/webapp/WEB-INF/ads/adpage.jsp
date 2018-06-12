@@ -13,10 +13,10 @@
 
 
     <div class="categories">
+    <h3>Categories:</h3>
+<c:forEach var="cat" items="${cats}">
 
-<c:forEach var="cat" items="${selectad.categories}">
-
-    <span class="mr-2">${cat.title}</span>
+    <span class="mr-2">${cat.title}</span><br>
 
 </c:forEach>
     </div>
