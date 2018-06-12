@@ -27,6 +27,7 @@ public class MySQLUsersDao implements Users {
 
 
 
+
     @Override
     public User findByUsername(String username) {
         PreparedStatement stmt = null;
@@ -44,6 +45,12 @@ public class MySQLUsersDao implements Users {
 
         return null;
     }
+
+
+
+
+
+
 
     @Override
     public Long insert(User user) {
