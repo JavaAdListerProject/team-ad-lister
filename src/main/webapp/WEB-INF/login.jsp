@@ -24,6 +24,8 @@
             </div>
             <input type="submit" class="btn btn-primary btn-block" value="Log In">
         </form>
+        Don't have an account? Click
+        <a href="/register">Here</a>
     </div>
 
     <jsp:include page="/WEB-INF/partials/footer.jsp" />
