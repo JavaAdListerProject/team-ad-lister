@@ -3,7 +3,9 @@ package com.codeup.adlister.controllers;
 import com.codeup.adlister.dao.Ads;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.models.Validation;
 import com.codeup.adlister.util.Password;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,29 +25,39 @@ public class LoginServlet extends HttpServlet{
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+
+        Validation validate = new Validation();
+
         User user = DaoFactory.getUsersDao().findByUsername(username);
         List ads = DaoFactory.getAdsDao().findAllByUser(user.getId());
 
 
-        if (user == null) {
-            response.sendRedirect("/login");
+        validate.checkString("Username", username,false);
+        validate.checkExists("Username", true, DaoFactory.getUsersDao().userExistsByUsername(username));
+        validate.checkString("Password", password, false);
+
+
+        if(user != null) {
+            validate.checkEncryptedPassword(password, user.getPassword());
+        }
+
+        if (!validate.passed()) {
+            request.setAttribute("validate", validate);
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         }
 
-        boolean validAttempt = Password.check(password, user.getPassword());
-
-        if (validAttempt) {
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("ads", ads);
 //            ads.forEach((ad) -> {
 //                System.out.println(ad);
 //            });
             response.sendRedirect("/profile");
-        } else {
-            response.sendRedirect("/login");
-        }
+
+
+
     }
 }

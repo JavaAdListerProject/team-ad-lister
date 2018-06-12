@@ -1,7 +1,10 @@
 package com.codeup.adlister.dao;
 
 import com.codeup.adlister.Config;
+import com.codeup.adlister.models.Response;
+import com.codeup.adlister.models.ResponseError;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.models.Validation;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
@@ -23,18 +26,24 @@ public class MySQLUsersDao implements Users {
     }
 
 
+
     @Override
     public User findByUsername(String username) {
-        String query = "SELECT * FROM users WHERE username = ?";
+        PreparedStatement stmt = null;
+
         try {
-            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt = connection.prepareStatement("SELECT * FROM users WHERE username = ? LIMIT 1");
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
-            rs.next();
-            return extractUser(rs);
+
+            if(rs.next()) {
+                return extractUser(rs);
+            }
         } catch (SQLException e) {
-            throw new RuntimeException("Error finding a user by username", e);
+            return null;
         }
+
+        return null;
     }
 
     @Override
@@ -79,6 +88,34 @@ public class MySQLUsersDao implements Users {
             rs.getString("email"),
             rs.getString("password")
         );
+    }
+
+
+    /* Checks if user exist by username. */
+    public boolean userExistsByUsername(String username ) {
+        return (findByUsername(username) != null);
+
+    }
+
+
+    public Validation addNewUser(String username, String email, String password, String passwordConfirmation) {
+
+        Validation validate = new Validation();
+
+        validate.checkString("Username", username, false, 1, 100);
+        validate.checkEmail("Email", email);
+        validate.checkAndComparePassword("Password", password, passwordConfirmation);
+        validate.checkValueExists("Username", username, false,
+                DaoFactory.getUsersDao().userExistsByUsername(username));
+
+        // If validation passes save user.
+        if (validate.passed()) {
+            User user = new User(username, email, password);
+            insert(user);
+        }
+
+        return validate;
+
     }
 
 }

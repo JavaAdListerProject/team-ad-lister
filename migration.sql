@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS adlister_db;
+
 USE adlister_db;
 
 DROP TABLE IF EXISTS ads;
@@ -7,7 +9,7 @@ DROP TABLE IF EXISTS categories;
 
 CREATE TABLE users (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    username VARCHAR(240) UNIQUE NOT NULL,
+    username VARCHAR(240) UNIQUE NOT NULL, /* must be unique usernames*/
     email VARCHAR(240) NOT NULL,
     password VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
@@ -90,6 +92,33 @@ VALUES
   ('gaming', @discID),
   ('gardening', @discID),
   ('tv', @discID);
+
+
+INSERT INTO categories (title, main_id)
+VALUES
+('apts / housing       ', @housID),
+('housing swap         ', @housID),
+('housing wanted       ', @housID),
+('office / commercial  ', @housID),
+('parking / storage    ', @housID),
+('real estate for sale ', @housID),
+('rooms / shared       ', @housID),
+('rooms wanted         ', @housID),
+('sublets / temporary  ', @housID),
+('vacation rentals     ', @housID);
+
+
+INSERT INTO categories (title, main_id)
+VALUES
+('security               ', @jobsID) ,
+('skilled trade / craft  ', @jobsID) ,
+('software / qa / dba    ', @jobsID) ,
+('systems / network      ', @jobsID) ,
+('technical support      ', @jobsID) ,
+('transport              ', @jobsID) ,
+('tv / film / video      ', @jobsID) ,
+('web / info design      ', @jobsID) ,
+('writing / editing     ', @jobsID);
 
 
 
