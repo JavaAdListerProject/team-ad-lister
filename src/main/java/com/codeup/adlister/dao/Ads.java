@@ -16,9 +16,6 @@ public interface Ads {
 
 
     List<Ad> search(String search);
-    List<Ad> searhbyCat(int catId);
-    Ad searchbyAdId(int id);
-    List<Ad> searchByUserId(long userId);
 
 
     Ad findById(String id);

@@ -29,30 +29,13 @@ public class AdSearchServlet extends HttpServlet {
 
 
             String input = request.getParameter("input");
-            String catId = request.getParameter("catId");
 
             if (input != null) {
-                request.setAttribute("categories", DaoFactory.getAdCategoryDao().all());
+
                 request.setAttribute("term", input);
                 request.setAttribute("ads", DaoFactory.getAdsDao().search(input));
-                request.getRequestDispatcher("/WEB-INF/search.jsp").forward(request, response);
-
-            } else if (catId != null) {
-                int catInt = Integer.parseInt(catId);
-
-                List<AdCategory> all = DaoFactory.getAdCategoryDao().all();
-                request.setAttribute("categories", all);
-
-                for (AdCategory cat : all)
-                {
-                    if(cat.getId() == catInt){
-                        request.setAttribute("term", cat.getTitle());
-                    }
-                }
-                request.setAttribute("ads", DaoFactory.getAdsDao().search(catInt));
-                request.getRequestDispatcher("/WEB-INF/search.jsp").forward(request, response);
-            }else {
-                response.sendRedirect("/");
             }
+                request.getRequestDispatcher("/WEB-INF/ads/AdsPage.jsp").forward(request, response);
+
         }
     }
