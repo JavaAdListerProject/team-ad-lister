@@ -20,7 +20,7 @@
 
                 <c:forEach var="subCat" items="${sub}">
                     <c:if test="${cat.id == subCat.mainId}">
-                        <div><a href="#">${subCat.title}</a></div>
+                        <div><a href="/ads/list?cat=${subCat.id}">${subCat.title}</a></div>
                     </c:if>
                 </c:forEach>
             </div>
