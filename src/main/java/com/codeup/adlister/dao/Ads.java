@@ -8,6 +8,8 @@ public interface Ads {
     // get a list of all the ads
     List<Ad> all();
 
+    Object search(int catInt);
+
     // Display adds in specific category
     List<Ad> category(Long id);
 
@@ -20,5 +22,8 @@ public interface Ads {
 
     Ad findById(String id);
 
-    Object search(int catInt);
+    void updateAd(Ad ad);
+
+    List<Ad> getAdsByTerm(String search);
+    List<Ad> getAdsByCategory(String category);
 }

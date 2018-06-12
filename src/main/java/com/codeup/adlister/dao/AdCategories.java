@@ -1,5 +1,6 @@
 package com.codeup.adlister.dao;
 
+import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.AdCategory;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface AdCategories {
 
     // Returns main, then sub in list order for printing out.
     List<AdCategory> inListOrder();
+
+    List<AdCategory> AdCategories(Ad ad);
+    void linkCategories(long id, String[] categories);
 }

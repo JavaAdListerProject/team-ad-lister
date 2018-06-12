@@ -36,6 +36,7 @@ public class AdSearchServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/ads/AdsPage.jsp").forward(request, response);
 
         }
+        // what happend with the submit and what going on with the search
 
 
     }

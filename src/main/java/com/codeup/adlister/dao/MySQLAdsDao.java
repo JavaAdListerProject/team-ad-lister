@@ -87,6 +87,21 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
+    public void updateAd(Ad ad) {
+
+    }
+
+    @Override
+    public List<Ad> getAdsByTerm(String search) {
+        return null;
+    }
+
+    @Override
+    public List<Ad> getAdsByCategory(String category) {
+        return null;
+    }
+
+    @Override
     public Object search(int catInt) {
         return null;
     }
