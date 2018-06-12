@@ -9,6 +9,8 @@ public interface AdCategories {
     // Returns all ad categories
     List<AdCategory> all();
 
+    List<AdCategory> allSub();
+
     // Returns only main ad categories
     List<AdCategory> main();
 
