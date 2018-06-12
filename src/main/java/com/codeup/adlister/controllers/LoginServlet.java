@@ -52,11 +52,8 @@ public class LoginServlet extends HttpServlet{
 
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("ads", ads);
-//            ads.forEach((ad) -> {
-//                System.out.println(ad);
-//            });
-            response.sendRedirect("/profile");
 
+            response.sendRedirect("/profile");
 
 
     }
