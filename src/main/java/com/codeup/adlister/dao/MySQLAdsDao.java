@@ -110,12 +110,12 @@ public class MySQLAdsDao implements Ads {
 
     private static Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
-            rs.getLong("id"),
-            rs.getLong("user_id"),
-            rs.getString("title"),
-            rs.getString("description")
+                rs.getLong("id"),
+                rs.getLong("user_id"),
+                rs.getString("title"),
+                rs.getString("description")
         );
-
+    }
 
     @Override
     public List<Ad> findAllByUser(Long userId) {
@@ -133,21 +133,6 @@ public class MySQLAdsDao implements Ads {
 
     }
 
-    private static Ad extractAd(ResultSet rs) throws SQLException {
-
-        Ad ad =  new Ad(
-                rs.getLong("id"),
-                rs.getLong("user_id"),
-                rs.getString("title"),
-                rs.getString("description"));
-
-                // Get categories associated with an ad, link to add model
-                ad.setCategories(
-                        DaoFactory.getAdCategoryDao().getByAdId(
-                                rs.getLong("id")));
-
-        return ad;
-    }
 
     private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
         List<Ad> ads = new ArrayList<>();
