@@ -1,5 +1,6 @@
 package com.codeup.adlister.controllers;
 
+import com.codeup.adlister.dao.Ads;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
 import com.codeup.adlister.models.Validation;
@@ -12,9 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "controllers.LoginServlet", urlPatterns = "/login")
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") != null) {
             response.sendRedirect("/profile");
@@ -30,6 +32,8 @@ public class LoginServlet extends HttpServlet {
         Validation validate = new Validation();
 
         User user = DaoFactory.getUsersDao().findByUsername(username);
+        List ads = DaoFactory.getAdsDao().findAllByUser(user.getId());
+
 
         validate.checkString("Username", username,false);
         validate.checkExists("Username", true, DaoFactory.getUsersDao().userExistsByUsername(username));
@@ -47,8 +51,9 @@ public class LoginServlet extends HttpServlet {
         }
 
             request.getSession().setAttribute("user", user);
-            response.sendRedirect("/profile");
+            request.getSession().setAttribute("ads", ads);
 
+            response.sendRedirect("/profile");
 
 
     }

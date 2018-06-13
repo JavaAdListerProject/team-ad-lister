@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "Adspageservlet", urlPatterns = "/adpage")
 public class AdsPageServlet extends HttpServlet {
@@ -19,11 +20,12 @@ public class AdsPageServlet extends HttpServlet {
 
         Ad ad = DaoFactory.getAdsDao().findById(request.getParameter("adid"));
         User user =  DaoFactory.getUsersDao().findById(ad.getUserId());
-
+        List cats = DaoFactory.getAdCategoryDao().getByAdId(ad.getUserId());
 
         request.setAttribute("adid", request.getParameter("adid"));
         request.setAttribute("selectad", ad);
         request.setAttribute("user", user);
+        request.setAttribute("cats", cats);
         request.getRequestDispatcher("/WEB-INF/ads/adpage.jsp").forward(request, response);
     }
 }

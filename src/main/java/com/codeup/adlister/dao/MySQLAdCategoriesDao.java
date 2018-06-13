@@ -63,6 +63,21 @@ public class MySQLAdCategoriesDao implements AdCategories {
         }
     }
 
+    @Override
+    public List<AdCategory> getByAdId(long id) {
+        PreparedStatement stmt;
+        try {
+            stmt = connection.prepareStatement("" +
+                    "SELECT * FROM categories WHERE id IN (" +
+                    "   SELECT category_id FROM ad_categories WHERE ad_id  = ?)");
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            return createAdCategoriesFromResults(rs);
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
 
     @Override
     public List<AdCategory> allSub() {

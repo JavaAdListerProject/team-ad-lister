@@ -87,6 +87,7 @@ public class MySQLAdsDao implements Ads {
         return null;
     }
 
+
     @Override
     public void updateAd(Ad ad) {
 
@@ -114,8 +115,39 @@ public class MySQLAdsDao implements Ads {
             rs.getString("title"),
             rs.getString("description")
         );
+
+
+    @Override
+    public List<Ad> findAllByUser(Long userId) {
+
+        PreparedStatement stmt = null;
+        try {
+            stmt = connection.prepareStatement("SELECT * FROM ads WHERE user_id = ?");
+            stmt.setLong(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            return createAdsFromResults(rs);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
+    private static Ad extractAd(ResultSet rs) throws SQLException {
+
+        Ad ad =  new Ad(
+                rs.getLong("id"),
+                rs.getLong("user_id"),
+                rs.getString("title"),
+                rs.getString("description"));
+
+                // Get categories associated with an ad, link to add model
+                ad.setCategories(
+                        DaoFactory.getAdCategoryDao().getByAdId(
+                                rs.getLong("id")));
+
+        return ad;
+    }
 
     private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
         List<Ad> ads = new ArrayList<>();

@@ -8,9 +8,8 @@ public interface Users {
     Long insert(User user);
   
     boolean userExistsByUsername(String username);
-  
-    Validation addNewUser(String username, String email, String password, String pwConfirm);
 
+    Validation addNewUser(String username, String email, String password, String pwConfirm);
     User findById(Long id);
 
 }
