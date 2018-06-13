@@ -27,7 +27,7 @@
     <h1>Search through the ads.</h1>
     <form action="/ads/search" method="get">
         <div class="form-group">
-            <label for="term">Term</label>
+            <label for="term">Title</label>
             <input id="term" name="term" class="form-control" type="text" placeholder="${sticky}">
         </div>
 
