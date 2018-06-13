@@ -47,7 +47,6 @@
     <h1 style="text-align: center">Results for: <e:forHtmlContent value="${ads}"/></h1>
     <div class="code:forHtmlContentmargin-top: 75px">
         <div>
-
             <div class="col-md-6">
                 <c:forEach var="ad" items="${ads}">
                 <div>
@@ -55,17 +54,19 @@
                         <div>
                             <div>
                                 <h3 style="font-family: 'Jua', sans-serif" >${ad.title}</h3>
-                    <p>${ad.description}</p>
-                    <form action="/delete" method="post">
-
-                    </form>
+                                <p>${ad.description}</p>
+                                <form action="/adpage" method="get">
+                                    <input type="hidden" name="adid" value=${ad.id}>
+                                    <input type="hidden" name="userId" value=${ad.getUserId()}>
+                                    <input type="submit" value="View Details">
+                                </form>
+                            </div>
+                        </div>
+                    </p>
                 </div>
-            </div>
-            </p>
+            </c:forEach>
         </div>
-        </c:forEach>
     </div>
-</div>
 </div>
 
 </body>
