@@ -28,7 +28,6 @@ public interface Ads {
     List<Ad> getAdsByTerm(String search);
     List<Ad> getAdsByCategory(String category);
 
-    Ad findById(String id);
     List<Ad> findAllByUser(Long userId);
 
 }
