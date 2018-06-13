@@ -31,6 +31,7 @@
             <input id="term" name="term" class="form-control" type="text" placeholder="${sticky}">
         </div>
 
+
         <input type="submit" class="btn btn-primary btn-block">
     </form>
 
