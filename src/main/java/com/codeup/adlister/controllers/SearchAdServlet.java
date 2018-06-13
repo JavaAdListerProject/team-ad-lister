@@ -34,7 +34,7 @@ public class SearchAdServlet extends HttpServlet {
                 request.setAttribute("term", input);
                 request.setAttribute("ads", DaoFactory.getAdsDao().search(input));
             }
-                request.getRequestDispatcher("/WEB-INF/ads/Search.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(request, response);
 
         }
         // what happend with the submit and what going on with the search
