@@ -28,11 +28,7 @@
     <form action="/ads/search" method="get">
         <div class="form-group">
             <label for="term">Term</label>
-            <input id="term" name="term" class="form-control" type="text">
-        </div>
-        <div class="form-group">
-            <label for="ads">Ads </label>
-            <input id="ads" name="ads" class="form-control" type="text">
+            <input id="term" name="term" class="form-control" type="text" placeholder="${sticky}">
         </div>
 
         <input type="submit" class="btn btn-primary btn-block">
@@ -49,25 +45,25 @@
         <div>
             <div class="col-md-6">
                 <c:forEach var="ad" items="${ads}">
-                <div>
-                    <p href="/ads/page?id=${ad.id}">
-                        <div>
+                    <div>
+                        <p href="/ads/page?id=${ad.id}">
                             <div>
-                                <h3 style="font-family: 'Jua', sans-serif" >${ad.title}</h3>
-                                <p>${ad.description}</p>
-                                <form action="/adpage" method="get">
-                                    <input type="hidden" name="adid" value=${ad.id}>
-                                    <input type="hidden" name="userId" value=${ad.getUserId()}>
-                                    <input type="submit" value="View Details">
-                                </form>
+                                <div>
+                                    <h3 style="font-family: 'Jua', sans-serif" >${ad.title}</h3>
+                                    <p>${ad.description}</p>
+                                    <form action="/adpage" method="get">
+                                        <input type="hidden" name="adid" value=${ad.id}>
+                                        <input type="hidden" name="userId" value=${ad.getUserId()}>
+                                        <input type="submit" value="View Details">
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </p>
-                </div>
-            </c:forEach>
+                        </p>
+                    </div>
+                </c:forEach>
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 </html>

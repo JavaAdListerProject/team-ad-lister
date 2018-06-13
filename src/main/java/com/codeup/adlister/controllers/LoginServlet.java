@@ -46,6 +46,8 @@ public class LoginServlet extends HttpServlet{
 
         if (!validate.passed()) {
             request.setAttribute("validate", validate);
+            request.setAttribute("userSticky", username);
+            request.setAttribute("passSticky", password);
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         }
