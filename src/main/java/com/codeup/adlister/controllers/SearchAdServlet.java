@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "controllers.AdSearchServlet", urlPatterns = "/ads/search")
-public class AdSearchServlet extends HttpServlet {
+@WebServlet(name = "controllers.SearchAdServlet", urlPatterns = "/ads/search")
+public class SearchAdServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -34,7 +34,7 @@ public class AdSearchServlet extends HttpServlet {
                 request.setAttribute("term", input);
                 request.setAttribute("ads", DaoFactory.getAdsDao().search(input));
             }
-                request.getRequestDispatcher("/WEB-INF/ads/AdsPage.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/ads/Search.jsp").forward(request, response);
 
         }
         // what happend with the submit and what going on with the search
