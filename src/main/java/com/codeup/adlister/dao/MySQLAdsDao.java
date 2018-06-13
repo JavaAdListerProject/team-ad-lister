@@ -38,6 +38,21 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
+    public List<Ad> search(String search) {
+        PreparedStatement stmt = null;
+        try {
+            System.out.println(search);
+            stmt = connection.prepareStatement("SELECT * FROM ads where title LIKE ?");
+            stmt.setString(1, search);
+            ResultSet rs = stmt.executeQuery();
+            return createAdsFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving all ads.", e);
+        }
+    }
+
+
+    @Override
     public Long insert(Ad ad) {
         try {
             String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
@@ -74,6 +89,35 @@ public class MySQLAdsDao implements Ads {
 
 
     @Override
+    public void updateAd(Ad ad) {
+
+    }
+
+    @Override
+    public List<Ad> getAdsByTerm(String search) {
+        return null;
+    }
+
+    @Override
+    public List<Ad> getAdsByCategory(String category) {
+        return null;
+    }
+
+    @Override
+    public Object search(int catInt) {
+        return null;
+    }
+
+    private static Ad extractAd(ResultSet rs) throws SQLException {
+        return new Ad(
+            rs.getLong("id"),
+            rs.getLong("user_id"),
+            rs.getString("title"),
+            rs.getString("description")
+        );
+
+
+    @Override
     public List<Ad> findAllByUser(Long userId) {
 
         PreparedStatement stmt = null;
@@ -86,6 +130,7 @@ public class MySQLAdsDao implements Ads {
             e.printStackTrace();
         }
         return null;
+
     }
 
     private static Ad extractAd(ResultSet rs) throws SQLException {

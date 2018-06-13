@@ -8,6 +8,8 @@ public interface Ads {
     // get a list of all the ads
     List<Ad> all();
 
+    Object search(int catInt);
+
     // Display adds in specific category
     List<Ad> category(Long id);
 
@@ -15,6 +17,18 @@ public interface Ads {
     Long insert(Ad ad);
 
 
+
+    List<Ad> search(String search);
+
+
+    Ad findById(String id);
+
+    void updateAd(Ad ad);
+
+    List<Ad> getAdsByTerm(String search);
+    List<Ad> getAdsByCategory(String category);
+
     Ad findById(String id);
     List<Ad> findAllByUser(Long userId);
+
 }
