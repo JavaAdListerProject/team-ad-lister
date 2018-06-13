@@ -49,12 +49,12 @@ public class LoginServlet extends HttpServlet{
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         }
-
+        else {
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("ads", ads);
 
             response.sendRedirect("/profile");
 
-
+        }
     }
 }
