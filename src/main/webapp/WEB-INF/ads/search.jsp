@@ -32,7 +32,6 @@
                         </jsp:include>
                     </c:if>
                 </c:forEach>
-                <input  type="text" name="emp_name" id="emp_name">
             </td>
             </tr>
 
