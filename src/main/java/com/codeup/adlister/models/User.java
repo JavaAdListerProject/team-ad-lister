@@ -54,4 +54,8 @@ public class User {
     public void setPassword(String password) {
         this.password = Password.hash(password);
     }
+
+    public void setHashedPassword(String password) {
+        this.password =password;
+    }
 }

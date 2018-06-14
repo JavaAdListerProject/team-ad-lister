@@ -32,13 +32,10 @@ public class LoginServlet extends HttpServlet{
         Validation validate = new Validation();
 
         User user = DaoFactory.getUsersDao().findByUsername(username);
-        List ads = DaoFactory.getAdsDao().findAllByUser(user.getId());
-
 
         validate.checkString("Username", username,false);
         validate.checkExists("Username", true, DaoFactory.getUsersDao().userExistsByUsername(username));
         validate.checkString("Password", password, false);
-
 
         if(user != null) {
             validate.checkEncryptedPassword(password, user.getPassword());
@@ -53,8 +50,6 @@ public class LoginServlet extends HttpServlet{
         }
         else {
             request.getSession().setAttribute("user", user);
-            request.getSession().setAttribute("ads", ads);
-
             response.sendRedirect("/profile");
 
         }

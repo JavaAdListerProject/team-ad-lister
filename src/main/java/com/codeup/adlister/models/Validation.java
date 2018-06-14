@@ -27,7 +27,7 @@ public class Validation {
     public  void checkString(String inputName, String string, Boolean canBeNull, Integer minLength, Integer maxLength) {
         checkString(inputName, string, canBeNull);
         if(string.length() < minLength || string.length() > maxLength) {
-            results.add(new ResponseError(inputName , inputName + "length should be between " + minLength +  " and  " + maxLength + "."));
+            results.add(new ResponseError(inputName , inputName + " length should be between " + minLength +  " and  " + maxLength + "."));
         }
 
     }
