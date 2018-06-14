@@ -11,6 +11,8 @@ import java.util.List;
 
 public class MySQLAdsDao implements Ads {
     private static Connection connection = null;
+   public static String upDate = null;
+
 
     public MySQLAdsDao(Config config) {
         try {
@@ -49,6 +51,11 @@ public class MySQLAdsDao implements Ads {
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving all ads.", e);
         }
+    }
+
+    @Override
+    public void deleteQuery(String adId) {
+
     }
 
 
@@ -90,6 +97,16 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public void updateAd(Ad ad) {
+
+    }
+
+    @Override
+    public void create(Ad ad) throws SQLException {
+
+    }
+
+    @Override
+    public void update(Ad ad) throws SQLException {
 
     }
 
@@ -154,5 +171,18 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error retrieving ads in category.", e);
         }
     }
+
+
+    public void deleteAd(Ad ad) {
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM ads_categories WHERE ad_id = " + ad.getId());
+            statement.executeUpdate("DELETE FROM ads WHERE ID = " + ad.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting this ad.", e);
+        }
+    }
+
+
 
 }

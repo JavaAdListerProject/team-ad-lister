@@ -2,6 +2,7 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface Ads {
@@ -17,17 +18,20 @@ public interface Ads {
     Long insert(Ad ad);
 
 
-
     List<Ad> search(String search);
+    void deleteQuery(String adId);
 
 
     Ad findById(String id);
 
     void updateAd(Ad ad);
 
+    void create(Ad ad) throws SQLException;
+    void update(Ad ad) throws SQLException;
     List<Ad> getAdsByTerm(String search);
     List<Ad> getAdsByCategory(String category);
 
     List<Ad> findAllByUser(Long userId);
+
 
 }
