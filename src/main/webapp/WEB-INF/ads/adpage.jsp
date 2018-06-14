@@ -4,8 +4,12 @@
 <html>
 <head>
     <title>adpage</title>
+    <jsp:include page="/WEB-INF/partials/head.jsp">
+        <jsp:param name="title" value="Results" />
+    </jsp:include>
 </head>
 <body>
+<jsp:include page="/WEB-INF/partials/navbar.jsp" />
     <h1>Now showing ad #${adid}</h1>
     <h2>${selectad.title}</h2>
     <h3>By user ${user.username}</h3>
