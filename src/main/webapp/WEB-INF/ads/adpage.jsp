@@ -17,8 +17,25 @@
 <c:forEach var="cat" items="${cats}">
 
     <span class="mr-2">${cat.title}</span><br>
+    <input type="submit" class="button" >
 
 </c:forEach>
     </div>
+
+<c:forEach var="ad" items="${ads}">
+    <div>
+        <h3>${ad.title}</h3>
+            <p>${ad.description}</p>
+            <form action="/ads">
+                <input type="hidden" name="title" value="${ad.title}">
+                <input type="hidden" name="userId" value="${ad.getUserId()}">
+                <input type="hidden" name="addescription" value="${ad.description}">
+                <input type="submit">
+        </form>
+
+    </div>
+
+
+</c:forEach>
 </body>
 </html>
