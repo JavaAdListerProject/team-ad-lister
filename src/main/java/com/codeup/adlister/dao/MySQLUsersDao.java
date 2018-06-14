@@ -5,6 +5,7 @@ import com.codeup.adlister.models.Response;
 import com.codeup.adlister.models.ResponseError;
 import com.codeup.adlister.models.User;
 import com.codeup.adlister.models.Validation;
+import com.codeup.adlister.util.Password;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
@@ -24,8 +25,6 @@ public class MySQLUsersDao implements Users {
             throw new RuntimeException("Error connecting to the database!", e);
         }
     }
-
-
 
 
     @Override
@@ -49,10 +48,6 @@ public class MySQLUsersDao implements Users {
 
 
 
-
-
-
-
     @Override
     public Long insert(User user) {
         String query = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
@@ -67,6 +62,22 @@ public class MySQLUsersDao implements Users {
             return rs.getLong(1);
         } catch (SQLException e) {
             throw new RuntimeException("Error creating new user", e);
+        }
+    }
+
+    @Override
+    public boolean update(User user) {
+        String query = "UPDATE users SET username = ?, email= ?, password= ? WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPassword());
+            stmt.setLong(4 , user.getId());
+
+            return stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating user", e);
         }
     }
 
@@ -111,6 +122,8 @@ public class MySQLUsersDao implements Users {
 
         validate.checkString("Username", username, false, 1, 100);
         validate.checkEmail("Email", email);
+
+
         validate.checkAndComparePassword("Password", password, passwordConfirmation);
         validate.checkValueExists("Username", username, false,
                 DaoFactory.getUsersDao().userExistsByUsername(username));
@@ -119,6 +132,41 @@ public class MySQLUsersDao implements Users {
         if (validate.passed()) {
             User user = new User(username, email, password);
             insert(user);
+        }
+
+        return validate;
+
+    }
+
+    @Override
+    public Validation editUser(Long id, String username, String email, String password, String passwordConfirmation) {
+
+        Validation validate = new Validation();
+
+        // Check original user data
+        User user  = DaoFactory.getUsersDao().findById(id);
+
+        validate.checkString("Username", username, false, 1, 100);
+        validate.checkEmail("Email", email);
+
+        // changing password
+        if (!password.isEmpty()) {
+            validate.checkAndComparePassword("Password", password, passwordConfirmation);
+            password = Password.hash(password);
+        } else {
+            password = user.getPassword();
+        }
+
+        // change username
+        if(!user.getUsername().equals(username)) {
+            validate.checkValueExists("Username", username, false,
+                    DaoFactory.getUsersDao().userExistsByUsername(username));
+        }
+
+        // If validation passes save user.
+        if (validate.passed()) {
+            user = new User(id, username, email, password);
+            update(user);
         }
 
         return validate;

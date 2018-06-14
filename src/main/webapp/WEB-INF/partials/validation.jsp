@@ -13,3 +13,10 @@
     </c:forEach>
 
 </c:if>
+
+
+<c:if test="${updated == true}" >
+    <div class="alert alert-success" role="alert">
+        Successfully updated!
+    </div>
+</c:if>
