@@ -146,7 +146,8 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> category(Long Id) {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads WHERE category_id = ?");
+            stmt = connection.prepareStatement("SELECT * FROM ads a " +
+                    " WHERE  a.id IN (Select ad_id from ad_categories c where c.category_id = ? )");
             stmt.setLong(1, Id);
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);

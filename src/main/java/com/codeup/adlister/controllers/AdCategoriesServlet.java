@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(name = "controllers.AdCategoriesIndexServlet", urlPatterns = "/main")
+@WebServlet(name = "controllers.AdCategoriesIndexServlet", urlPatterns = "")
 public class AdCategoriesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("main", DaoFactory.getAdCategoryDao().main());
